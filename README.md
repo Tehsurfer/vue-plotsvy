@@ -2,9 +2,9 @@
 
 > Integrating plotsvy into vue
 
-View the demo 
+[Check out a live demo](https://vue-plotsvy-demo.netlify.com/)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/5f17332e-7693-4858-8b32-fcf4d23850f4/deploy-status)](https://app.netlify.com/sites/determined-bartik-4f3185/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5f17332e-7693-4858-8b32-fcf4d23850f4/deploy-status)](https://app.netlify.com/sites/vue-plotsvy-demo/deploys)
 
 ## Build Setup
 
