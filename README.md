@@ -1,6 +1,10 @@
-# vuetest2
+# vue-plotsvy
 
-> A Vue.js project
+> Integrating plotsvy into vue
+
+View the demo 
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5f17332e-7693-4858-8b32-fcf4d23850f4/deploy-status)](https://app.netlify.com/sites/determined-bartik-4f3185/deploys)
 
 ## Build Setup
 
