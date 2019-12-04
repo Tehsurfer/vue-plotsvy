@@ -50,7 +50,7 @@ var exx = {
   data: function() {
     return {
       items: ['first', 'second', 'third'],
-      pdata: [{ x: [1, 2, 3, 4], y: [10, 25, 20, 50], type: 'scatter' }],
+      pdata: [{ x: ['1', '2', '3', '4'], y: [10, 25, 20, 50], type: 'scatter' }],
       layout: {
         title: "edit this title"
       },
@@ -59,16 +59,17 @@ var exx = {
 
       url:
         "https://mapcore-bucket1.s3-us-west-2.amazonaws.com/ISAN/csv-data/stellate/sample_2/cell_1/18525003_channel_1.csv",
-      emailAddress: "john@smith.com",
-      twitterHandle: "johnsmith",
-      instagram: "johnsmith345"
+      emailAddress: "jessekhorasanee@gmail.com",
+      twitterHandle: "tehsurfer",
+      instagram: "khorasanee"
     };
   },
   computed: {
     loadURL: function() {
       csv.loadFile(this.url).then(_ => {
-        this.pdata[0].x = csv.getColoumnByIndex(0);
-        this.pdata[0].y = csv.getColoumnByIndex(1);
+        this.pdata[0].x = csv.getColoumnByIndex(0).shift();
+        this.pdata[0].y = csv.getColoumnByIndex(1).shift();
+        this.pdata[0].type = csv.getDataType()
         this.items = csv.getHeaders();
       });
     },
@@ -114,15 +115,6 @@ var exx = {
   },
 };
 
-var resize = function(resizeObject) {
-  resizeObject.addEventListener("resize", _ => {
-    VuePlotly.relayout(chartDiv, {
-      width: resizeObject.innerWidth,
-      height: resizeObject.innerHeight + 150,
-      type: 'scatter' 
-    });
-  });
-};
 window.exx = exx;
 export default exx;
 </script>
