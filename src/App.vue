@@ -3,7 +3,7 @@
     <vue-plotly
       id="chart"
       ref="plotly"
-      :data="data"
+      :data="pdata"
       :layout="layout"
       :options="options"
       :autoResize="true"
@@ -12,10 +12,10 @@
     />
     <dat-gui closeText="Close controls" openText="Open controls" closePosition="bottom">
       <dat-string v-model="layout.title" label="Title" />
+      <dat-button @click="plot()" label="Trigger alert"/>
       <dat-string v-model="url" label="Load CSV" />
-      <dat-string v-model="emailAddress" label="Load CSV" />
-      <dat-string v-model="twitterHandle" label="Load CSV" />
-      <dat-string v-model="instagram" label="Load CSV" />
+      <dat-button v-for="item in items" v-bind:key="item" v-bind:label="item" @click="plot(item)"/>
+
     </dat-gui>
     <button
       id="external-button"
@@ -23,7 +23,7 @@
       @click="calculateWidth()"
     >Resize Plot</button>
     <h3>title: {{layout.title}}</h3>
-    <h3>y array: {{data[0].y}}</h3>
+    <h3>y array: {{pdata[0].y}}</h3>
     <h3>{{loadURL}}</h3>
     <div :testy="testy">gg{{testy}}</div>
     <contact-info
@@ -49,7 +49,8 @@ var exx = {
   props: ["testy"],
   data: function() {
     return {
-      data: [{ x: [1, 2, 3, 4], y: [10, 25, 20, 50] }],
+      items: ['first', 'second', 'third'],
+      pdata: [{ x: [1, 2, 3, 4], y: [10, 25, 20, 50], type: 'scatter' }],
       layout: {
         title: "edit this title"
       },
@@ -66,10 +67,12 @@ var exx = {
   computed: {
     loadURL: function() {
       csv.loadFile(this.url).then(_ => {
-        this.data[0].x = csv.getColoumnByIndex(0);
-        this.data[0].y = csv.getColoumnByIndex(1);
+        this.pdata[0].x = csv.getColoumnByIndex(0);
+        this.pdata[0].y = csv.getColoumnByIndex(1);
+        this.items = csv.getHeaders();
       });
     },
+ 
     initialiseResizeListener: function(resizeObject) {
       resizeObject.addEventListener("resize", _ => {
         VuePlotly.relayout(chartDiv, {
@@ -78,24 +81,45 @@ var exx = {
         });
       });
     },
+    
   },
   methods: {
-        hoverd: function() {
-      this.layout.title = "We are hovering!!";
+    hoverd: function() {
+      this.layout.title = "We are hovering!!"
     },
+    plot: function(channel){
+      this.layout.title = channel
+      console.log(this.pdata)
+      window.pdata = this.pdata
+      this.pdata[0].y = csv.getColoumnByName(channel)
+    },
+    
     calculateWidth: function (){
       this.layout.title = this.$refs.app.clientWidth
       this.$refs.plotly.relayout({width: this.$refs.app.clientWidth, })
       window.reeefs = this.$refs
+    },
+    handleResize: function (){
+      this.layout.title = this.$refs.app.clientWidth
+      this.$refs.plotly.relayout({width: this.$refs.app.clientWidth, })
+      window.reeefs = this.$refs
     }
-  }
+  },
+  created() {
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize();
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.handleResize)
+  },
 };
 
 var resize = function(resizeObject) {
   resizeObject.addEventListener("resize", _ => {
     VuePlotly.relayout(chartDiv, {
       width: resizeObject.innerWidth,
-      height: resizeObject.innerHeight + 150
+      height: resizeObject.innerHeight + 150,
+      type: 'scatter' 
     });
   });
 };
