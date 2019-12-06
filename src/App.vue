@@ -1,5 +1,5 @@
 <template>
-  <div id="app" ref="app">
+  <div id="app" ref="app" :testy="testy">
     <vue-plotly
       id="chart"
       ref="plotly"
@@ -25,7 +25,7 @@
     <h3>title: {{layout.title}}</h3>
     <h3>y array: {{pdata[0].y}}</h3>
     <h3>{{loadURL}}</h3>
-    <div :testy="testy">gg{{testy}}</div>
+    <h2> {{ testy ? testy : 'test failed!' }}</h2>
     <contact-info
       :email-address="emailAddress"
       :twitter-handle="twitterHandle"

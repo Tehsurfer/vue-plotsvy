@@ -3,14 +3,14 @@ import App from './App.vue'
 
 
 window.vuue = new Vue({
-  el: '#app',
+  el: '#entry',
   components: {App},
-  render: h => h(App),
   data: function(){
     return{
       testy:'this is a test'
     }
-  }
+  },
+  template: '<app :testy="testy"/>'
 })
 
 
