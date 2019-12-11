@@ -1,14 +1,20 @@
 {
-  "name": "test-project",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@tehsurfer/csvvuer",
+  "version": "0.0.1",
+  "main": "./dist/csvvuer.common.js",
+  "files": [
+    "dist/*",
+    "src/*",
+    "public/*",
+    "*.json",
+    "*.js"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --target lib --name csvvuer ./src/components/index.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@cyrilf/vue-dat-gui": "^0.3.0",
     "@statnett/vue-plotly": "^0.3.2",
     "core-js": "^3.4.3",
     "element-ui": "^2.13.0",
