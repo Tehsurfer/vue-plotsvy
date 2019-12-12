@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+     <el-button v-if="displays.length > 0" @click="RemoveModel" class="my-button" size="small">Remove Model</el-button>
+      <span class="my-button">Selected: {{selected}}</span>
+       <el-button v-if="displays.length < csvFiles.length" @click="AddData" class="my-button" size="small">Add Data</el-button>
     <PlotVuer :csvFiles="csvFiles"></PlotVuer>
   </div>
 </template>

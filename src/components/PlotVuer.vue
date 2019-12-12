@@ -1,5 +1,5 @@
 <template>
-  <div id="app" ref="app">
+  <div id='app'>
     <vue-plotly
       id="chart"
       ref="plotly"
@@ -7,19 +7,7 @@
       :layout="layout"
       :options="options"
       :autoResize="true"
-      @hover="layout.title='hovering on plotly'"
-
     />
-    <el-input placeholder="Enter Title Here" v-model="layout.title"></el-input>
-
-    <el-select v-model="url" @change="layout.title=url; loadURL(url)"  placeholder="Select a csv file">
-      <el-option
-        v-for="file in csvFiles"
-        :key="file"
-        :label="file"
-        :value="file">
-      </el-option>
-    </el-select>
     <el-select v-model="channel" @change="plot(channel)"  placeholder="Select a channel">
       <el-option
         v-for="item in items"
@@ -33,17 +21,16 @@
 <script>
 import VuePlotly from "@statnett/vue-plotly"
 import Vue from "vue"
-import {Input, Select, Option} from 'element-ui'
+import {Select, Option} from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import CsvManager from "./csv_manager"
 var csv = new CsvManager()
-Vue.use(Input)
 Vue.use(Select)
 Vue.use(Option)
 export default {
   name: "PlotVuer",
   components: { VuePlotly },
-  props: ["csvFiles"],
+  props: ["url"],
   data: function() {
     return {
       items: ['first', 'second', 'third'],
@@ -54,12 +41,10 @@ export default {
       testSelect: ['one', 'two', 'three', 'four'],
       options: {},
       input: '',
-      url: "https://mapcore-bucket1.s3-us-west-2.amazonaws.com/ISAN/csv-data/stellate/sample_2/cell_1/18525003_channel_1.csv",
       channel: 'Select a channel'
     };
   },
-  computed: {
-  },
+
   methods: {
 
     loadURL: function(url) {
@@ -68,11 +53,9 @@ export default {
         this.pdata[0].y = csv.getColoumnByIndex(1).shift();
         this.pdata[0].type = csv.getDataType()
         this.items = csv.getHeaders();
+        this.plot(csv.getHeaderByIndex(1))
         return true
       });
-    },
-    hoverd: function() {
-      this.layout.title = "We are hovering!!"
     },
     plot: function(channel){
       this.layout.title = channel
@@ -82,7 +65,6 @@ export default {
     handleResize: function (){
       this.layout.title = 'Width adjusted to:' + this.$refs.app.clientWidth
       this.$refs.plotly.relayout({width: this.$refs.app.clientWidth, })
-      window.reeefs = this.$refs
     }
   },
   created() {
