@@ -5,7 +5,6 @@
       ref="plotly"
       :data="pdata"
       :layout="layout"
-      :options="options"
       :autoResize="true"
     />
     <el-select v-model="channel" @change="plot(channel)"  placeholder="Select a channel">
@@ -38,9 +37,6 @@ export default {
       layout: {
         title: "edit this title"
       },
-      testSelect: ['one', 'two', 'three', 'four'],
-      options: {},
-      input: '',
       channel: 'Select a channel'
     };
   },
@@ -70,6 +66,7 @@ export default {
   created() {
     window.addEventListener('resize', this.handleResize)
     this.loadURL(this.url)
+    console.log(this.url)
   },
   destroyed() {
     window.removeEventListener('resize', this.handleResize)
@@ -77,14 +74,3 @@ export default {
 };
 </script>
 
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-</style>
