@@ -1,7 +1,7 @@
 {
-  "name": "@tehsurfer/csvvuer",
-  "version": "0.0.5",
-  "main": "./dist/csvvuer.common.js",
+  "name": "@tehsurfer/plotvuer",
+  "version": "0.0.1",
+  "main": "./dist/plotvuer.common.js",
   "files": [
     "dist/*",
     "src/*",
@@ -11,15 +11,17 @@
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name csvvuer ./src/components/index.js",
+    "build": "vue-cli-service build --target lib --name plot-vuer ./src/components/index.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@statnett/vue-plotly": "^0.3.2",
     "core-js": "^3.4.3",
+    "css-element-queries": "^1.2.2",
     "element-ui": "^2.13.0",
     "papaparse": "^5.1.0",
-    "vue": "^2.6.10"
+    "vue": "^2.6.10",
+    "vue-resize": "^0.4.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.1.0",

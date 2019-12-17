@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="plotvuer">
   <div class="top-panel">
      <el-button v-if="displays.length > 0" @click="RemoveData" class="my-button" size="small">Remove Model</el-button>
        <el-button v-if="csvFiles.length > 0" @click="AddData" class="my-button" size="small">Add Data</el-button>

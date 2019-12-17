@@ -1,7 +1,7 @@
 <template>
-  <div id='app'>
+  <div class="plotvuer_parent">
     <vue-plotly
-      id="chart"
+      class ='chart'
       ref="plotly"
       :data="pdata"
       :layout="layout"
@@ -23,6 +23,7 @@ import Vue from "vue"
 import {Select, Option} from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import CsvManager from "./csv_manager"
+import ReziseSensor from 'css-element-queries/src/ResizeSensor'
 var csv = new CsvManager()
 Vue.use(Select)
 Vue.use(Option)
@@ -59,17 +60,20 @@ export default {
       this.pdata[0].y = csv.getColoumnByName(channel)
     },
     handleResize: function (){
-      this.layout.title = 'Width adjusted to:' + this.$refs.app.clientWidth
-      this.$refs.plotly.relayout({width: this.$refs.app.clientWidth, })
+      new ReziseSensor(this.$el, _=>{
+        this.layout.title = 'Width adjusted to:' + this.$el.clientWidth
+        this.$refs.plotly.relayout({width: this.$el.clientWidth})
+      })
     }
   },
+  mounted(){
+    this.handleResize()
+  },
   created() {
-    window.addEventListener('resize', this.handleResize)
     this.loadURL(this.url)
     console.log(this.url)
   },
   destroyed() {
-    window.removeEventListener('resize', this.handleResize)
   },
 };
 </script>
