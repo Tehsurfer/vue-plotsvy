@@ -12,6 +12,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name plot-vuer ./src/components/index.js",
+    "netlify-build":"vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
